@@ -9,7 +9,7 @@ import uuid from 'react-uuid';
 import { isEmpty } from "lodash-es";
 
 import styles from "./Chat.module.css";
-import Contoso from "../../assets/Contoso.svg";
+import Contoso from "../../assets/Alex.png";
 
 import {
     ChatMessage,
@@ -590,7 +590,7 @@ const Chat = () => {
                                     className={styles.chatIcon}
                                     aria-hidden="true"
                                 />
-                                <h1 className={styles.chatEmptyStateTitle}>Start chatting</h1>
+                                <h1 className={styles.chatEmptyStateTitle}>Start chatting with Azure OpenAi Alex!!!!</h1>
                                 <h2 className={styles.chatEmptyStateSubtitle}>This chatbot is configured to answer your questions</h2>
                             </Stack>
                         ) : (
@@ -711,7 +711,7 @@ const Chat = () => {
                             </Stack>
                             <QuestionInput
                                 clearOnSend
-                                placeholder="Type a new question..."
+                                placeholder="Type a new question...Alex!!!"
                                 disabled={isLoading}
                                 onSend={(question, id) => {
                                     appStateContext?.state.isCosmosDBAvailable?.cosmosDB ? makeApiRequestWithCosmosDB(question, id) : makeApiRequestWithoutCosmosDB(question, id)
