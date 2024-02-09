@@ -75,6 +75,11 @@ export type UserInfo = {
     user_id: string;
 };
 
+export type SpeechAuth = {
+    access_token: string;
+    region: string;
+};
+
 export enum CosmosDBStatus {
     NotConfigured = "CosmosDB is not configured",
     NotWorking = "CosmosDB is not working",
@@ -103,6 +108,7 @@ export type ErrorMessage = {
 
 export type FrontendSettings = {
     auth_enabled?: string | null;
+    speech_enabled?: boolean;
     feedback_enabled?: string | null;
 }
 
