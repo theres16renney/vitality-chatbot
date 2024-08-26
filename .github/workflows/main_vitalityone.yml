@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'VitalityOne'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DE9D5BFDE2334152B0B6A6EABE228499 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_40C5208966494D60B36A86E7CDE16F82 }}
