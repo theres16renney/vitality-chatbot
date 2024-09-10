@@ -2,12 +2,12 @@
   width: 86px;
   height: 32px;
   border-radius: 4px;
-  background: radial-gradient(109.81% 107.82% at 100.1% 90.19%, #f25083 33.63%, #f25083 70.31%, #f25083 100%);
+  background: #f41b5d;
   padding: 5px 12px;
 }
 
 .shareButtonRoot:hover {
-  background: linear-gradient(135deg, #e37e99 0%, #e37e99 51.04%, #e37e99 100%);
+  background: #e37e99;
 }
 
 .shareButtonRoot span {
