@@ -177,6 +177,7 @@
   left: 7px;
   top: 66px;
   color: #ffffff;
+  background: #f41b5d;
   border-radius: 4px;
   z-index: 1;
 }
@@ -195,6 +196,7 @@
   color: #ffffff;
   border-radius: 4px;
   z-index: 1;
+  background: #f41b5d;
 }
 
 .stopGeneratingContainer {
