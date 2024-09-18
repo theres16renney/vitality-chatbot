@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://sampleappaoaichatgpt.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_4a8106b8ab234f8482a1a20d158c8ceb }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_3b657e1907bd4995b447a3038a9fb480 }}
+        registry: https://45d89fdb4c734bf28fd7f2d65b272e1c.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_308dca0e00014caca8408a2f3b6795c3 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_c03f148ff40c47c6b4cd791989a31ed0 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4a8106b8ab234f8482a1a20d158c8ceb }}/sample-app-aoai-chatgpt:${{ github.sha }}
+        tags: 45d89fdb4c734bf28fd7f2d65b272e1c.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_308dca0e00014caca8408a2f3b6795c3 }}/vitality-athena-ai:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'Vitality-Athena-Ai'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_dc3f92b7d007407c896759d6fbb1ba8c }}
-        images: 'sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_4a8106b8ab234f8482a1a20d158c8ceb }}/sample-app-aoai-chatgpt:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b60696e9a7864de5afa7534cfc3f0c33 }}
+        images: '45d89fdb4c734bf28fd7f2d65b272e1c.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_308dca0e00014caca8408a2f3b6795c3 }}/vitality-athena-ai:${{ github.sha }}'
