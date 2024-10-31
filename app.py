@@ -13,7 +13,7 @@ from quart import (
     request,
     send_from_directory,
     render_template,
-    current_app,
+    current_app, Response, send_file,
 )
 
 from openai import AsyncAzureOpenAI
@@ -37,6 +37,9 @@ from backend.utils import (
 )
 
 bp = Blueprint("routes", __name__, static_folder="static", template_folder="static")
+# Define the path to the "specifications" folder in your container
+
+SPECIFICATIONS_FOLDER = '/specifications'
 
 cosmos_db_ready = asyncio.Event()
 
@@ -67,6 +70,28 @@ async def index():
         favicon=app_settings.ui.favicon
     )
 
+# Route to list all files in "specifications" directory
+@bp.route('/specifications')
+async def list_specification_files() -> Response:
+    try:
+        files = os.listdir(SPECIFICATIONS_FOLDER)
+        # Return file names with URLs to access each file
+        file_urls = {file: f"/specifications/{file}" for file in files}
+        return Response(response=json.dumps({"files": file_urls}), content_type="application/json")
+    except Exception as e:
+        return Response(status=500, response=f"Error: {str(e)}")
+
+# Route to serve a specific file from the "specifications" directory
+@bp.route('/specifications/<filename>')
+async def serve_specification_file(filename: str) -> Response:
+    file_path = os.path.join(SPECIFICATIONS_FOLDER, filename)
+
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        return Response(status=404, text="File not found")
+
+    # Serve the file
+    return await send_file(file_path)
 
 @bp.route("/favicon.ico")
 async def favicon():
