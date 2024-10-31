@@ -293,6 +293,18 @@
   margin-bottom: 12px;
 }
 
+.citationPanelDevPortalTitle {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #f41b5d;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .citationPanelTitle:hover {
   text-decoration: underline;
   cursor: pointer;

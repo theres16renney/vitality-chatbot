@@ -38,6 +38,7 @@ import { QuestionInput } from "../../components/QuestionInput";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
+import color = Mocha.reporters.Base.color;
 
 const enum messageStatus {
   NotRunning = 'Not Running',
@@ -685,6 +686,9 @@ const Chat = () => {
   }, [showLoadingMessage, processMessages])
 
   const onShowCitation = (citation: Citation) => {
+    if (citation.url) {
+      citation.url = citation.url.replace("stvitalitygl375479395588.blob.core.windows.net/athena-blob-container", "vitality-athena.azurewebsites.net/specifications")
+    }
     setActiveCitation(citation)
     setIsCitationPanelOpen(true)
   }
@@ -697,6 +701,34 @@ const Chat = () => {
     if (citation.url && !citation.url.includes('blob.core')) {
       window.open(citation.url, '_blank')
     }
+  }
+
+  const onViewSourceDevPortal = (citation: Citation) => {
+    if (citation.title) {
+      console.log("CITATION : " + citation.title)
+      if (citation.title.includes('Micro Service Endpoint Specification')) {
+        let text = parseTitle(citation.title, "endpoints")
+        window.open(text, '_blank')
+      }
+      else if (citation.title.includes('Micro Service Specification')) {
+        let text = parseTitle(citation.title, "microservices")
+        window.open(text, '_blank')
+      }
+      else if (citation.title.includes('Bounded Context Specification') || citation.title.includes('Logical Model Specification')) {
+        let text = parseTitle(citation.title, "contexts")
+        window.open(text, '_blank')
+      }
+    }
+  }
+
+  const parseTitle = (title: string, domain : string) : string => {
+    if (title) {
+      title = title?.substring(0, title.indexOf('-'))
+      title = title.replace(" ", "-");
+      title = title.toLowerCase().trim();
+      title = "https://vitality-athena.azurewebsites.net/specifications/devportal/" + domain + "/"+title+".html"
+    }
+    return title
   }
 
   const parseCitationFromMessage = (message: ChatMessage) => {
@@ -928,52 +960,59 @@ const Chat = () => {
           </div>
           {/* Citation Panel */}
           {messages && messages.length > 0 && isCitationPanelOpen && activeCitation && (
-            <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
-              <Stack
-                aria-label="Citations Panel Header Container"
-                horizontal
-                className={styles.citationPanelHeaderContainer}
-                horizontalAlign="space-between"
-                verticalAlign="center">
+              <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Citations Panel">
+                <Stack
+                    aria-label="Citations Panel Header Container"
+                    horizontal
+                    className={styles.citationPanelHeaderContainer}
+                    horizontalAlign="space-between"
+                    verticalAlign="center">
                 <span aria-label="Citations" className={styles.citationPanelHeader}>
                   Citations
                 </span>
-                <IconButton
-                  iconProps={{ iconName: 'Cancel' }}
-                  aria-label="Close citations panel"
-                  onClick={() => setIsCitationPanelOpen(false)}
-                />
-              </Stack>
-              <h5
-                className={styles.citationPanelTitle}
-                tabIndex={0}
-                title={
-                  activeCitation.url && !activeCitation.url.includes('blob.core')
-                    ? activeCitation.url
-                    : activeCitation.title ?? ''
-                }
-                onClick={() => onViewSource(activeCitation)}>
-                {activeCitation.title}
-              </h5>
-              <div tabIndex={0}>
-                <ReactMarkdown
-                  linkTarget="_blank"
-                  className={styles.citationPanelContent}
-                  children={DOMPurify.sanitize(activeCitation.content, { ALLOWED_TAGS: XSSAllowTags })}
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw]}
-                />
-              </div>
-            </Stack.Item>
+                  <IconButton
+                      iconProps={{iconName: 'Cancel'}}
+                      aria-label="Close citations panel"
+                      onClick={() => setIsCitationPanelOpen(false)}
+                  />
+                </Stack>
+                <h5
+                    className={styles.citationPanelTitle}
+                    tabIndex={0}
+                    title={
+                      activeCitation.url && !activeCitation.url.includes('catalogue') && !activeCitation.url.includes('logs')
+                          ? activeCitation.url
+                          : activeCitation.title ?? ''
+                    }
+                    onClick={() => onViewSource(activeCitation)}>
+                  {activeCitation.title}
+                </h5>
+                <h3
+                    className={styles.citationPanelDevPortalTitle}
+                    tabIndex={0}
+                    title='Developer Portal'
+                    onClick={() => onViewSourceDevPortal(activeCitation)}>
+                  Developer Portal
+                </h3>
+                <div tabIndex={0}>
+                  <ReactMarkdown
+                      linkTarget="_blank"
+                      className={styles.citationPanelContent}
+                      children={DOMPurify.sanitize(activeCitation.content, {ALLOWED_TAGS: XSSAllowTags})}
+                      remarkPlugins={[remarkGfm]}
+                      rehypePlugins={[rehypeRaw]}
+                  />
+                </div>
+              </Stack.Item>
           )}
           {messages && messages.length > 0 && isIntentsPanelOpen && (
-            <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Intents Panel">
-              <Stack
-                aria-label="Intents Panel Header Container"
-                horizontal
-                className={styles.citationPanelHeaderContainer}
-                horizontalAlign="space-between"
-                verticalAlign="center">
+              <Stack.Item className={styles.citationPanel} tabIndex={0} role="tabpanel" aria-label="Intents Panel">
+                <Stack
+                    aria-label="Intents Panel Header Container"
+                    horizontal
+                    className={styles.citationPanelHeaderContainer}
+                    horizontalAlign="space-between"
+                    verticalAlign="center">
                 <span aria-label="Intents" className={styles.citationPanelHeader}>
                   Intents
                 </span>
