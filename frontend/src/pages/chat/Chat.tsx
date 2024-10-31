@@ -724,7 +724,7 @@ const Chat = () => {
   const parseTitle = (title: string, domain : string) : string => {
     if (title) {
       title = title?.substring(0, title.indexOf('-'))
-      title = title.replace(" ", "-");
+      title = title.replaceAll(" ", "-");
       title = title.toLowerCase().trim();
       title = "https://vitality-athena.azurewebsites.net/specifications/devportal/" + domain + "/"+title+".html"
     }
