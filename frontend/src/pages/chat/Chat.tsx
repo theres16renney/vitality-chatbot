@@ -38,7 +38,6 @@ import { QuestionInput } from "../../components/QuestionInput";
 import { ChatHistoryPanel } from "../../components/ChatHistory/ChatHistoryPanel";
 import { AppStateContext } from "../../state/AppProvider";
 import { useBoolean } from "@fluentui/react-hooks";
-import color = Mocha.reporters.Base.color;
 
 const enum messageStatus {
   NotRunning = 'Not Running',
@@ -705,7 +704,6 @@ const Chat = () => {
 
   const onViewSourceDevPortal = (citation: Citation) => {
     if (citation.title) {
-      console.log("CITATION : " + citation.title)
       if (citation.title.includes('Micro Service Endpoint Specification')) {
         let text = parseTitle(citation.title, "endpoints")
         window.open(text, '_blank')
@@ -723,9 +721,9 @@ const Chat = () => {
 
   const parseTitle = (title: string, domain : string) : string => {
     if (title) {
-      title = title?.substring(0, title.indexOf('-'))
+      title = title?.substring(0, title.indexOf('-')).trim()
       title = title.replaceAll(" ", "-");
-      title = title.toLowerCase().trim();
+      title = title.toLowerCase();
       title = "https://vitality-athena.azurewebsites.net/specifications/devportal/" + domain + "/"+title+".html"
     }
     return title
