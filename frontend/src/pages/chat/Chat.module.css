@@ -161,6 +161,7 @@
   left: 7px;
   top: 13px;
   color: #ffffff;
+  background: #f41b5d;
   border-radius: 4px;
   z-index: 1;
 }
@@ -291,6 +292,7 @@
   color: #323130;
   margin-top: 12px;
   margin-bottom: 12px;
+  text-decoration: underline;
 }
 
 .citationPanelDevPortalTitle {
@@ -301,6 +303,10 @@
   color: #f41b5d;
   margin-top: 12px;
   margin-bottom: 12px;
+  text-decoration: underline;
+}
+
+.citationPanelDevPortalTitle:hover {
   text-decoration: underline;
   cursor: pointer;
 }
