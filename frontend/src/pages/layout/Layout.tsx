@@ -14,7 +14,7 @@ const Layout = () => {
   const [isSharePanelOpen, setIsSharePanelOpen] = useState<boolean>(false)
   const [copyClicked, setCopyClicked] = useState<boolean>(false)
   const [copyText, setCopyText] = useState<string>('Copy URL')
-  const [shareLabel, setShareLabel] = useState<string | undefined>('Share')
+  const [shareLabel, setShareLabel] = useState<string | undefined>('Getting Started')
   const [hideHistoryLabel, setHideHistoryLabel] = useState<string>('Hide chat history')
   const [showHistoryLabel, setShowHistoryLabel] = useState<string>('Show chat history')
   const [logo, setLogo] = useState('')
@@ -22,7 +22,7 @@ const Layout = () => {
   const ui = appStateContext?.state.frontendSettings?.ui
 
   const handleShareClick = () => {
-    setIsSharePanelOpen(true)
+    window.open("https://vitality-athena.azurewebsites.net/specifications/Athena Overview.pdf", '_blank')
   }
 
   const handleSharePanelDismiss = () => {
@@ -61,7 +61,7 @@ const Layout = () => {
         setHideHistoryLabel('Hide history')
         setShowHistoryLabel('Show history')
       } else {
-        setShareLabel('Share')
+        setShareLabel('Getting Started')
         setHideHistoryLabel('Hide chat history')
         setShowHistoryLabel('Show chat history')
       }
