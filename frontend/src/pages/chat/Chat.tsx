@@ -978,7 +978,7 @@ const Chat = () => {
                     className={styles.citationPanelTitle}
                     tabIndex={0}
                     title={
-                      activeCitation.url && !activeCitation.url.includes('catalogue') && !activeCitation.url.includes('logs')
+                      activeCitation.url && !activeCitation.url.includes('catalogue') && !activeCitation.url.includes('logs') && !activeCitation.url.includes('reference-data')
                           ? activeCitation.url
                           : activeCitation.title ?? ''
                     }
@@ -988,6 +988,9 @@ const Chat = () => {
                 <h3
                     className={styles.citationPanelDevPortalTitle}
                     tabIndex={0}
+                    hidden={
+                      !(activeCitation.url && !activeCitation.url.includes('catalogue') && !activeCitation.url.includes('logs') && !activeCitation.url.includes('reference-data'))
+                    }
                     title='Developer Portal'
                     onClick={() => onViewSourceDevPortal(activeCitation)}>
                   Developer Portal
