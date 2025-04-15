@@ -326,6 +326,7 @@ const Chat = () => {
       }
       setMessages(request.messages)
     }
+    console.log(request);
     let result = {} as ChatResponse
     var errorResponseMessage = 'Please try again. If the problem persists, please contact the site administrator.'
     try {
