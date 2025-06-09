@@ -11,6 +11,7 @@ from quart import (
     jsonify,
     make_response,
     request,
+    send_file,
     send_from_directory,
     render_template,
     current_app,
@@ -93,7 +94,7 @@ async def serve_specification_file(filename: str):
         return jsonify({"error": "File not found"}), 404
 
     # Serve the file
-    return send_file(file_path)
+    return await send_file(file_path)
 
 @bp.route("/favicon.ico")
 async def favicon():
