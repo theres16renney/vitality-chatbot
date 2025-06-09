@@ -77,9 +77,11 @@ async def list_specification_files():
         files = os.listdir(SPECIFICATIONS_FOLDER)
         # Return file names with URLs to access each file
         file_urls = {file: f"/specifications/{file}" for file in files}
-        return Response(response=json.dumps({"files": file_urls}), content_type="application/json")
+        response = await make_response(json.dumps({"files": file_urls}))
+        response.mimetype = "application/json-lines"
+        return response
     except Exception as e:
-        return Response(status=500, response=f"Error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 # Route to serve a specific file from the "specifications" directory
 @bp.route('/specifications/<path:filename>')
@@ -88,7 +90,7 @@ async def serve_specification_file(filename: str):
 
     # Check if the file exists
     if not os.path.exists(file_path):
-        return Response(status=404, response="File not found")
+        return jsonify({"error": "File not found"}), 404
 
     # Serve the file
     return await send_file(file_path)
