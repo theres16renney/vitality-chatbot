@@ -93,7 +93,7 @@ async def serve_specification_file(filename: str):
         return jsonify({"error": "File not found"}), 404
 
     # Serve the file
-    return await send_file(file_path)
+    return send_file(file_path)
 
 @bp.route("/favicon.ico")
 async def favicon():
