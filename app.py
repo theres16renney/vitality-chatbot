@@ -72,7 +72,7 @@ async def index():
 
 # Route to list all files in "specifications" directory
 @bp.route('/specifications')
-async def list_specification_files() -> Response:
+async def list_specification_files():
     try:
         files = os.listdir(SPECIFICATIONS_FOLDER)
         # Return file names with URLs to access each file
@@ -83,7 +83,7 @@ async def list_specification_files() -> Response:
 
 # Route to serve a specific file from the "specifications" directory
 @bp.route('/specifications/<path:filename>')
-async def serve_specification_file(filename: str) -> Response:
+async def serve_specification_file(filename: str):
     file_path = os.path.join(SPECIFICATIONS_FOLDER, filename)
 
     # Check if the file exists
