@@ -309,9 +309,6 @@ def prepare_model_args(request_body, request_headers):
         application_name = app_settings.ui.title
         user_json = get_msdefender_user_json(authenticated_user_details, request_headers, conversation_id, application_name)
 
-    # Check if this is a reasoning model (gpt-5.x series)
-    is_reasoning_model = app_settings.azure_openai.model.startswith("gpt-5")
-
     model_args = {
         "messages": messages,
         "stream": app_settings.azure_openai.stream,
@@ -319,14 +316,10 @@ def prepare_model_args(request_body, request_headers):
         "user": user_json
     }
 
-    # Reasoning models use max_completion_tokens and don't support temperature, top_p, etc.
-    if is_reasoning_model:
-        model_args["max_completion_tokens"] = app_settings.azure_openai.max_tokens
-    else:
-        model_args["max_tokens"] = app_settings.azure_openai.max_tokens
-        model_args["temperature"] = app_settings.azure_openai.temperature
-        model_args["top_p"] = app_settings.azure_openai.top_p
-        model_args["stop"] = app_settings.azure_openai.stop_sequence
+    model_args["max_tokens"] = app_settings.azure_openai.max_tokens
+    model_args["temperature"] = app_settings.azure_openai.temperature
+    model_args["top_p"] = app_settings.azure_openai.top_p
+    model_args["stop"] = app_settings.azure_openai.stop_sequence
 
     if len(messages) > 0:
         if messages[-1]["role"] == "user":
